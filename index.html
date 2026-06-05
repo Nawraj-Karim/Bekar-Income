@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Neon Mini App</title>
+  <style>
+    :root { --bg-color: #0b0f19; --card-bg: #131a2c; --neon-blue: #00f0ff; --neon-glow: 0 0 10px #00f0ff; --gold: #ffd700; }
+    body { background-color: var(--bg-color); color: #ffffff; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .neon-text { color: var(--neon-blue); text-shadow: var(--neon-glow); }
+    .container { flex: 1; padding: 20px; overflow-y: auto; display: none; }
+    .container.active { display: block; }
+    .navbar { display: flex; background-color: var(--card-bg); border-top: 2px solid var(--neon-blue); }
+    .nav-item { flex: 1; text-align: center; padding: 15px 0; cursor: pointer; color: #8aa1cf; font-weight: bold; }
+    .nav-item.active { color: var(--neon-blue); text-shadow: var(--neon-glow); }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 1px solid #1e2942; }
+    .btn { background: transparent; border: 1px solid var(--neon-blue); color: #fff; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; box-shadow: var(--neon-glow); }
+    .tab-bar { display: flex; margin-bottom: 15px; }
+    .tab { flex: 1; text-align: center; padding: 10px; background: #1e2942; cursor: pointer; font-size: 13px; }
+    .tab.active { background: var(--neon-blue); color: #000; font-weight: bold; }
+    input, select { width: 93%; padding: 12px; margin-bottom: 12px; background: #1e2942; color: #fff; border: 1px solid #2a3b5c; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div id="p-home" class="container active">
+    <h2 class="neon-text">⚡ Dashboard</h2>
+    <div class="card">
+      <h3>Your Balance: <span class="neon-text" id="user-pts">0</span> PTS</h3>
+      <p>Lucky Spins: <span style="color:var(--gold)" id="user-spins">3</span> 🎰</p>
+      <button class="btn" onclick="spin()">Spin Wheel</button>
+    </div>
+  </div>
+  <div id="p-tasks" class="container">
+    <h2 class="neon-text">💼 Tasks Arena</h2>
+    <div class="card"><h4>Normal Tasks</h4><p>• Subscribe YouTube (+100 PTS)</p></div>
+    <div class="card" style="border-color:var(--gold)"><h3 style="color:var(--gold)">🔒 VIP Tasks</h3><p>• Premium App Signup (+1500 PTS)</p></div>
+  </div>
+  <div id="p-refer" class="container">
+    <h2 class="neon-text">👥 Invite Friends</h2>
+    <div class="card">
+      <input type="text" id="ref" value="https://t.me/YourBot/app?startapp=User" readonly>
+      <button class="btn" onclick="document.getElementById('ref').select();document.execCommand('copy');alert('Copied!')">Copy Link</button>
+    </div>
+  </div>
+  <div id="p-wallet" class="container">
+    <h2 class="neon-text">💰 ATM Wallet</h2>
+    <div class="card">
+      <select id="method"><option value="Bkash">bKash</option><option value="Nagad">Nagad</option></select>
+      <input type="text" id="acc" placeholder="Account Number">
+      <input type="number" id="amt" placeholder="Amount (BDT)">
+      <button class="btn" onclick="withdraw()">Confirm Cashout</button>
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="nav-item active" onclick="nav('home')">Home</div><div class="nav-item" onclick="nav('tasks')">Tasks</div><div class="nav-item" onclick="nav('refer')">Refer</div><div class="nav-item" onclick="nav('wallet')">Wallet</div>
+  </div>
+  <script>
+    function nav(p){
+      document.querySelectorAll('.container').forEach(e=>e.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('active'));
+      document.getElementById('p-'+p).classList.add('active'); event.currentTarget.classList.add('active');
+    }
+    async function spin() { alert("Spin request sent to API!"); }
+    async function withdraw() { alert("Withdraw request submitted!"); }
+  </script>
+</body>
+</html>
